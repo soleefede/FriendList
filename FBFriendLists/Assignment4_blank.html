@@ -109,16 +109,11 @@
 				//create the div of the list and add all of the list into the right area.
 				while (temp["data"][i] != null){
 					GroupID[i] = temp["data"][i]["id"];//Save the id value of the group into an array.
-					
 					$("<div><h1>" + temp["data"][i]["name"] + "</h1><ul class='sortFB connectSort' id='"+ GroupID[i] +"'></ul></div>").appendTo("#GroupList");
-				
 					i++;
-				}
-					
+				}		
 				var i = 0;
-				
 				getMembers(i);//start to display the existent members in the existent lists.
-				
 			}	
 			
 			function getMembers(num){
@@ -157,6 +152,7 @@
 					$("#gender").text(response.gender);
 					$("#birth").text(response.birthday);
 					$("#loca").text(response.location.name);
+					console.log(response.name);
 					
 				});
 				
