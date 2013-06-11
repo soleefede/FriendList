@@ -76,17 +76,16 @@
 					/*
 					第四步：
 					*/
-					function(response){
+					function(res){
 						var i=0;
-						while(response['data'][i] != null){
+						while(res['data'][i] != null){
 					
-							var fId = response['data'][i]['id'];
-							var fName = response['data'][i]['name'];
+							var fId = res['data'][i]['id'];
+							var fName = res['data'][i]['name'];
 							$("<div onclick='changeInfo("+fId+");'><img src='https://graph.facebook.com/"+ fId + "/picture' /><span>"+fName+"</span></div>").appendTo("#FillInList");
 							i++;
 						}
 					}
-				}
 				
 					/*
 					第五步：
