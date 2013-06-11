@@ -5,56 +5,10 @@
 		<link rel="stylesheet" type="text/css" href="CSS/FriendLists.css"/>
 		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-		<script>
-			$(document).ready(function() {
-				$("#FriendList").sortable({
-					connectWith:".connectSort",
-					tolerance: "pointer"
-				});
-			});
-				
-				//Use this api to create the list
-				/*FB.api('me/friendlists', 'post', {name: temptitle}, function(res){
-				
-					alert(res.id);
-				
-				});*/
-				
-			function change(para){
-				switch (para){
-					case 1:
-						var temptitle = prompt("Enter the name of your new friend list");
-						
-						if(temptitle){
-				
-							FB.api('me/friendlists', 'post', {name: temptitle}, function(res){
-				
-								var i = GroupID.length;
-						
-								GroupID[i+1] = res.id;
-					
-								$("<div><h1>" + temptitle + "</h1><ul class='sortFB connectSort' id='"+ res.id +"'></ul></div>").appendTo("#GroupList");
-				
-								getMembers(i);//start to display the existent members in the existent lists.
-				
-							});
-						}else{
-						
-							alert("Null list name is not allowed, please check again.");
-							
-						}
-					break;
-					case 2:
-						
-					break;
-				}
-			}
-		</script>
 	</head>
 	<body>
 		<!--第一步：請先在此加入Facebook應用程式開發所需要的的資源，請參考 https://developers.facebook.com/docs/reference/javascript/ -->
 		<div id="fb-root"></div>
-		<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
 		<script>
   			window.fbAsyncInit = function() {
     		// init the FB JS SDK
