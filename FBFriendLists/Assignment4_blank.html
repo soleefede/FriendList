@@ -76,16 +76,19 @@
 					/*
 					第四步：
 					*/
-					function(res){
-						var i=0;
-						while(res['data'][i] != null){
+					FB.api('/me/friends', function(response){
+				
+					var i=0;
 					
-							var fId = res['data'][i]['id'];
-							var fName = res['data'][i]['name'];
-							$("<div onclick='changeInfo("+fId+");'><img src='https://graph.facebook.com/"+ fId + "/picture' /><span>"+fName+"</span></div>").appendTo("#FillInList");
-							i++;
-						}
+					while(response['data'][i] != null){
+					
+						var fId = response['data'][i]['id'];
+						var fName = response['data'][i]['name'];
+						$("<div onclick='changeInfo("+fId+");'><img src='https://graph.facebook.com/"+ fId + "/picture' /><span>"+fName+"</span></div>").appendTo("#FriendList");
+
+						i++;
 					}
+				});
 				
 					/*
 					第五步：
