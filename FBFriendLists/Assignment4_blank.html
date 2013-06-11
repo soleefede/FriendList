@@ -11,28 +11,24 @@
 		<div id="fb-root"></div>
 		<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
 		<script>
-			var defaultPath = "http://localhost/FBFriendsListExample/Index.html";
-			var uid;
-			var Access_Token;
-			var GroupID = new Array;
-			var GroupMember = new Array;
-			
-			window.fbAsyncInit = function() {
-				FB.init({
-					appId: "483978465006271", // Your facebook app id
-					status: true,
-					cookie: true,
-					xfbml: true
-				});
-			}
-			
-			(function(d, s, id) {
- 				var js, fjs = d.getElementsByTagName(s)[0];
- 				if (d.getElementById(id)) return;
- 				js = d.createElement(s); js.id = id;
-				js.src = "//connect.facebook.net/zh_TW/all.js#xfbml=1&appId=483978465006271";
- 				fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'facebook-jssdk'));
+  			window.fbAsyncInit = function() {
+    		// init the FB JS SDK
+    			FB.init({
+      				appId      : '483978465006271',                        // App ID from the app dashboard
+      				channelUrl : '//WWW.soleefede.github.io.COM/channel.html', // Channel file for x-domain comms
+      				status     : true,                                 // Check Facebook Login status
+      				xfbml      : true                                  // Look for social plugins on the page
+    			});
+   			 // Additional initialization code such as adding Event Listeners goes here
+  			};
+ 			 // Load the SDK asynchronously
+  			(function(d, s, id){
+     			var js, fjs = d.getElementsByTagName(s)[0];
+     			if (d.getElementById(id)) {return;}
+     			js = d.createElement(s); js.id = id;
+     			js.src = "//connect.facebook.net/en_US/all.js";
+     			fjs.parentNode.insertBefore(js, fjs);
+   			}(document, 'script', 'facebook-jssdk'));
 		</script>
 		<script>
 			$(window).load(function () {
@@ -42,45 +38,65 @@
 				因次在實作的過程中，必須先思考自己會需要用到哪些資訊
 				在這次的作業中，我們需要使用者的生日，居住地，讀取朋友清單，管理朋友清單（如果需要的話）
 				*/
-				 FB.login(function(response) {
-   					if (response.authResponse) {
-     					console.log('Welcome!  Fetching your information.... ');
-     					FB.api('/me', function(response) {
-       					console.log('Good to see you, ' + response.name + '.');
-     				});
-   				} else {
-     				console.log('User cancelled login or did not fully authorize.');
-   				}
- 				});
-			});
+				 FB.login( loginDialog, { scope: 'read_friendlists, manage_friendlists, friends_birthday, friends_location'});
 			
-			function loginDialog(){
+				function loginDialog(){
 				
-				/*
-				第三步：以FB.getLoginStatus來確認使用者的登入狀態，請參考 https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus/
-				*/
-				
-			}
+					/*
+					第三步：以FB.getLoginStatus來確認使用者的登入狀態，請參考 https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus/
+					*/
+					FB.getLoginStatus(function(response) {
+  						if (response.status === 'connected') {
+						    // the user is logged in and has authenticated your
+						    // app, and response.authResponse supplies
+						    // the user's ID, a valid access token, a signed
+						    // request, and the time the access token 
+						    // and signed request each expire
+						    var uid = response.authResponse.userID;
+						    var accessToken = response.authResponse.accessToken;
+						    listFriends();
+  						} else if (response.status === 'not_authorized') {
+						    // the user is logged in to Facebook, 
+						    // but has not authenticated your app
+						    alert("Please authorize this app!");
+							window.location = defaultPath;
+  						} else {
+    						// the user isn't logged in to Facebook.
+    						alert("Please Login with your Facebook account!");
+							window.location = defaultPath;
+  						}
+ 					});
+				}
 			
-			function listFriends(){
+				function listFriends(){
 				
-				//from now on we can decorate our website with the data related to the facebook.
-				//list all your friends.
-				/*
-				第四步：
-				*/
+					//from now on we can decorate our website with the data related to the facebook.
+					//list all your friends.
+					/*
+					第四步：
+					*/
+					FB.api('/me/friends', function(response){
 				
-				
-				
-				
-				/*
-				第五步：
-				*/
-				//We have listed all your friends without any list categories.
-				//Try to use the api to retrieve our friend lists and display them in the website
-				
+						var i=0;
 					
-			}
+						while(response['data'][i] != null){
+					
+							var fId = response['data'][i]['id'];
+							var fName = response['data'][i]['name'];
+							$("<div onclick='changeInfo("+fId+");'><img src='https://graph.facebook.com/"+ fId + "/picture' /><span>"+fName+"</span></div>").appendTo("#FriendList");
+							i++;
+						}
+					});
+				
+					/*
+					第五步：
+					*/
+					//We have listed all your friends without any list categories.
+					//Try to use the api to retrieve our friend lists and display them in the website
+					FB.api('/me/friendlists', function(res){
+						getFr(res);
+					});			
+				}
 			
 			function getFr(temp){
 			
