@@ -76,10 +76,8 @@
 					/*
 					第四步：
 					*/
-					FB.api('/me/friends', function(response){
-				
+					function(response){
 						var i=0;
-					
 						while(response['data'][i] != null){
 					
 							var fId = response['data'][i]['id'];
@@ -87,7 +85,7 @@
 							$("<div onclick='changeInfo("+fId+");'><img src='https://graph.facebook.com/"+ fId + "/picture' /><span>"+fName+"</span></div>").appendTo("#FillInList");
 							i++;
 						}
-					});
+					}
 				
 					/*
 					第五步：
