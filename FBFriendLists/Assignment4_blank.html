@@ -145,9 +145,9 @@
 				
 			}
 			
-			function changeInfo(friends){
+			function changeInfo(uid){
 				
-				FB.api("/"+friends, function(response) {
+				FB.api("/"+uid, function(response) {
 					
 					$("#name").text(response.name);
 					$("#gender").text(response.gender);
