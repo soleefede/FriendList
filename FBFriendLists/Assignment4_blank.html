@@ -41,7 +41,17 @@
 				在這次的作業中，我們需要使用者的生日，居住地，讀取朋友清單，管理朋友清單（如果需要的話）
 				*/
 				FB.login( loginDialog, { scope: 'read_friendlists, manage_friendlists, friends_birthday, friends_location'});
-			
+				
+				function changeInfo(uid){
+					FB.api("/"+uid, function(response) {
+						$("#name").text(response.name);
+						$("#gender").text(response.gender);
+						$("#birth").text(response.birthday);
+						$("#loca").text(response.location.name);
+						console.log(response.name);
+					});
+				}
+
 				function loginDialog(){
 				
 					/*
@@ -118,10 +128,8 @@
 			}	
 			
 			function getMembers(num){
-			
 				//request the meber list, then call the insert function
 				if(GroupID[num] != null){
-				
 					/*請在下方FB.api內的第一個欄位，填入要找到哪些東西的對應名稱*/
 					FB.api('/'+GroupID[num]+'/members', function(res){
 						GroupMember[num] = res;
@@ -132,12 +140,9 @@
 			
 			function listMember(num){
 				var a = 0;
-				
 				//You have saved the responsed JSON into the array GroupMember, thus you can start to use this array to insert data. 
-				while(GroupMember[num]["data"][a] != null){
-							
+				while(GroupMember[num]["data"][a] != null){	
 					$("<div onclick='changeInfo("+GroupMember[num]["data"][a]["id"]+");'><img src='https://graph.facebook.com/"+ GroupMember[num]["data"][a]["id"] + "/picture' /><span>"+GroupMember[num]["data"][a]["name"]+"</span></div>").appendTo("#"+GroupID[num]);
-						
 					a++;
 				}
 				
@@ -147,19 +152,6 @@
 			
 			
 		});
-		function changeInfo(uid){
-				
-				FB.api("/"+uid, function(response) {
-					
-					$("#name").text(response.name);
-					$("#gender").text(response.gender);
-					$("#birth").text(response.birthday);
-					$("#loca").text(response.location.name);
-					console.log(response.name);
-					
-				});
-				
-			}
 		</script>
 		<div id="FriendList">
 			<h1>Your Friends</h1>
