@@ -85,7 +85,7 @@
 					
 						var fId = response['data'][i]['id'];
 						var fName = response['data'][i]['name'];
-						$("<div onclick='changeInfo("+fId+");'><img src='https://graph.facebook.com/"+ fId + "/picture' /><span>"+fName+"</span></div>").appendTo("#FillInList");
+						$("<div onclick='changeInfo(+fId+);'><img src='https://graph.facebook.com/"+ fId + "/picture' /><span>"+fName+"</span></div>").appendTo("#FillInList");
 
 						i++;
 					}
@@ -136,7 +136,7 @@
 				//You have saved the responsed JSON into the array GroupMember, thus you can start to use this array to insert data. 
 				while(GroupMember[num]["data"][a] != null){
 							
-					$("<div onclick='changeInfo("+GroupMember[num]["data"][a]["id"]+");'><img src='https://graph.facebook.com/"+ GroupMember[num]["data"][a]["id"] + "/picture' /><span>"+GroupMember[num]["data"][a]["name"]+"</span></div>").appendTo("#"+GroupID[num]);
+					$("<div onclick='changeInfo(+GroupMember[num]["data"][a]["id"]+);'><img src='https://graph.facebook.com/"+ GroupMember[num]["data"][a]["id"] + "/picture' /><span>"+GroupMember[num]["data"][a]["name"]+"</span></div>").appendTo("#"+GroupID[num]);
 						
 					a++;
 				}
@@ -160,18 +160,18 @@
 			}
 		});
 		</script>
-			<div id="FriendList">
-				<h1>Your Friends</h1>
-				<ul id="FillInList">
-				</ul>
-			</div>
-			<div id="infoDiv">
-				<span>姓名：</span><span id="name"></span><br/>
-				<span>性別：</span><span id="gender"></span><br/>
-				<span>生日：</span><span id="birth"></span><br/>
-				<span>住處：</span><span id="loca"></span><br/>
-			</div>
-			<div id="GroupList">
-			</div>
+		<div id="FriendList">
+			<h1>Your Friends</h1>
+			<ul id="FillInList">
+			</ul>
+		</div>
+		<div id="infoDiv">
+			<span>姓名：</span><span id="name"></span><br/>
+			<span>性別：</span><span id="gender"></span><br/>
+			<span>生日：</span><span id="birth"></span><br/>
+			<span>住處：</span><span id="loca"></span><br/>
+		</div>
+		<div id="GroupList">
+		</div>
 	</body>
 </html>
