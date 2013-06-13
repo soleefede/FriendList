@@ -30,6 +30,16 @@
    			}(document, 'script', 'facebook-jssdk'));
 		</script>
 		<script>
+
+			function changeInfo(uid){
+				FB.api("/"+uid, function(response) {
+					$("#name").text(response.name);
+					$("#gender").text(response.gender);
+					$("#birth").text(response.birthday);
+						$("#loca").text(response.location.name);
+						console.log(response.name);
+					});
+				}
 			$(window).load(function () {
 				var GroupID = [];
 				var GroupMember = [];
@@ -42,15 +52,7 @@
 				*/
 				FB.login( loginDialog, { scope: 'read_friendlists, manage_friendlists, friends_birthday, friends_location'});
 				
-				function changeInfo(uid){
-					FB.api("/"+uid, function(response) {
-						$("#name").text(response.name);
-						$("#gender").text(response.gender);
-						$("#birth").text(response.birthday);
-						$("#loca").text(response.location.name);
-						console.log(response.name);
-					});
-				}
+
 
 				function loginDialog(){
 				
